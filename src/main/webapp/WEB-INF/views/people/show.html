@@ -13,7 +13,8 @@
     <b>Книги:</b>
 </div>
 <div th:if="${!books.isEmpty()}" th:each="book : ${books}">
-    <a th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</a>
+    <a style="color: red" th:if="${book.isDelay()}" th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</a>
+    <a th:if="${!book.isDelay()}" th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</a>
 </div>
 <div th:if="${books.isEmpty()}">Человек пока не взял ни одной книги</div>
 

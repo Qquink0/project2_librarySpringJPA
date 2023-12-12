@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,14 @@ public class PeopleService {
 
         if (person.isPresent()) {
             Hibernate.initialize(person.get().getBooks());
+            Date currentDate = new Date();
+
+            for (Book book : person.get().getBooks()) {
+                if (currentDate.getTime() - book.getData().getTime() > (10 * 24 * 60 * 60 * 1000)) {
+                    book.setDelay(true);
+                }
+            }
+
             return person.get().getBooks();
         } else {
             return Collections.emptyList();
